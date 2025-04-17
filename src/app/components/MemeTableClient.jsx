@@ -59,10 +59,18 @@ export default function TablePage() {
         setMemes(JSON.parse(fromCookie));
       } catch {
         setMemes(defaultMemes);
-        Cookies.set("memes", JSON.stringify(defaultMemes));
+        Cookies.set("memes", JSON.stringify(defaultMemes), {
+          expires: 365,
+          sameSite: "Strict",
+          secure: true,
+        });
       }
     } else {
-      Cookies.set("memes", JSON.stringify(defaultMemes));
+      Cookies.set("memes", JSON.stringify(defaultMemes), {
+        expires: 365,
+        sameSite: "Strict",
+        secure: true,
+      });
     }
 
     setIsLoaded(true);

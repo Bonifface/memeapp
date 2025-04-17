@@ -18,7 +18,11 @@ export default function MemeListClient() {
       } catch (error) {
         console.error("Invalid cookies data:", error);
         setMemes(memesData);
-        Cookies.set("memes", JSON.stringify(memesData));
+        Cookies.set("memes", JSON.stringify(memesData), {
+          expires: 365,
+          sameSite: "Strict",
+          secure: true,
+        });
       }
     }
 
