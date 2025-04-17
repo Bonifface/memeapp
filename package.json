@@ -2,6 +2,7 @@
   "name": "meme-aaaaaaaappp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,9 +10,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroui/react": "^2.8.0-beta.0",
+    "framer-motion": "^12.7.3",
+    "js-cookie": "^3.0.5",
+    "next": "15.3.0",
+    "next-themes": "^0.4.6",
+    "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.0"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
