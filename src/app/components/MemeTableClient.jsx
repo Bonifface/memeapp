@@ -1,6 +1,5 @@
 "use client";
 
-import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import { memesData as defaultMemes } from "@/app/data/memes";
 import { MemeModal } from "@/app/components/Modal";
@@ -16,12 +15,12 @@ import {
 
 const getInitialMemes = () => {
   try {
-    const fromCookie = Cookies.get("memes");
-    if (fromCookie) return JSON.parse(fromCookie);
+    const fromStorage = localStorage.getItem("memes");
+    if (fromStorage) return JSON.parse(fromStorage);
   } catch (e) {
-    console.error("Invalid cookie format", e);
+    console.error("Invalid localStorage format", e);
   }
-  Cookies.set("memes", JSON.stringify(defaultMemes));
+  localStorage.setItem("memes", JSON.stringify(defaultMemes));
   return defaultMemes;
 };
 
@@ -36,7 +35,7 @@ export default function TablePage() {
       m.id === updatedMeme.id ? updatedMeme : m,
     );
     setMemes(updated);
-    Cookies.set("memes", JSON.stringify(updated));
+    localStorage.setItem("memes", JSON.stringify(updated));
     setEditing(null);
     setOpenModal(false);
   };
@@ -52,25 +51,17 @@ export default function TablePage() {
   };
 
   useEffect(() => {
-    const fromCookie = Cookies.get("memes");
-
-    if (fromCookie) {
-      try {
-        setMemes(JSON.parse(fromCookie));
-      } catch {
+    try {
+      const fromStorage = localStorage.getItem("memes");
+      if (fromStorage) {
+        setMemes(JSON.parse(fromStorage));
+      } else {
+        localStorage.setItem("memes", JSON.stringify(defaultMemes));
         setMemes(defaultMemes);
-        Cookies.set("memes", JSON.stringify(defaultMemes), {
-          expires: 365,
-          sameSite: "Strict",
-          secure: true,
-        });
       }
-    } else {
-      Cookies.set("memes", JSON.stringify(defaultMemes), {
-        expires: 365,
-        sameSite: "Strict",
-        secure: true,
-      });
+    } catch {
+      setMemes(defaultMemes);
+      localStorage.setItem("memes", JSON.stringify(defaultMemes));
     }
 
     setIsLoaded(true);
