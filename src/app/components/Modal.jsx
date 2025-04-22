@@ -27,15 +27,7 @@ const validationSchema = yup.object({
     .string()
     .url("Invalid image URL.")
     .matches(/\.(jpg|jpeg)$/, "Image URL must end with .jpg or .jpeg.")
-    .required("Image URL is required")
-    .test(
-      "is-image-valid",
-      "Image URL is not valid or image doesn't exist",
-      async (value) => {
-        if (!value) return false;
-        return await checkImageExists(value);
-      },
-    ),
+    .required("Image URL is required"),
   likes: yup
     .number()
     .max(100)
@@ -68,14 +60,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
   }
 
   return (
-    <Modal
-      isOpen={isOpenModal}
-      size={"lg"}
-      onClose={onClose}
-      classNames={{
-        wrapper: "[--slide-exit:0px]",
-      }}
-    >
+    <Modal isOpen={isOpenModal} size={"lg"} onClose={onClose}>
       <ModalContent>
         <ModalHeader className="pl-4 flex items-center justify-center text-white">
           Edit
@@ -113,9 +98,6 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
             <p className="text-red-500 text-sm">{errors.likes}</p>
           )}
         </ModalBody>
-        <button className="p-2 w-[80px] bg-purple-950" onClick={handleSave}>
-          Save
-        </button>
         <ModalFooter className={"flex items-center justify-end"}>
           <Button color="primary" onPress={onClose}>
             Close
@@ -123,9 +105,6 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
           <Button color="primary" onPress={handleSave}>
             Save
           </Button>
-          <button className="p-2 w-[80px] bg-purple-950" onClick={handleSave}>
-            Save
-          </button>
         </ModalFooter>
       </ModalContent>
     </Modal>

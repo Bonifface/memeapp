@@ -14,7 +14,7 @@ import {
 } from "@heroui/react";
 
 export default function TablePage() {
-  const [memes, setMemes] = useState(null); // ⬅ Спочатку null
+  const [memes, setMemes] = useState(null);
   const [editing, setEditing] = useState(null);
   const [isOpenModal, setOpenModal] = useState(false);
 
