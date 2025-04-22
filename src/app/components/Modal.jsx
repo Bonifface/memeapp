@@ -12,12 +12,30 @@ import {
 } from "@heroui/react";
 import * as yup from "yup";
 
+const checkImageExists = (url) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+};
+
 const validationSchema = yup.object({
   name: yup.string().required("Name cannot be empty.").min(3).max(100),
   imageUrl: yup
     .string()
     .url("Invalid image URL.")
-    .matches(/\.(jpg|jpeg)$/, "Image URL must end with .jpg or .jpeg."),
+    .matches(/\.(jpg|jpeg)$/, "Image URL must end with .jpg or .jpeg.")
+    .required("Image URL is required")
+    .test(
+      "is-image-valid",
+      "Image URL is not valid or image doesn't exist",
+      async (value) => {
+        if (!value) return false;
+        return await checkImageExists(value);
+      },
+    ),
   likes: yup
     .number()
     .max(100)
@@ -59,7 +77,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
           <div className="space-y-4">
             <Input
               size="sm"
-              label="Назва"
+              label="Name"
               value={name}
               variant="bordered"
               onChange={(e) => setName(e.target.value)}
@@ -74,7 +92,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
             />
             <Input
               size="sm"
-              label="Лайки"
+              label="Likes"
               value={likes}
               onChange={(e) => setLikes(e.target.value)}
               error={errors.likes}
