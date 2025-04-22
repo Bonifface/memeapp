@@ -113,6 +113,9 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
             <p className="text-red-500 text-sm">{errors.likes}</p>
           )}
         </ModalBody>
+        <button className="p-2 w-[80px] bg-purple-950" onClick={handleSave}>
+          Save
+        </button>
         <ModalFooter className={"flex items-center justify-end"}>
           <Button color="primary" onPress={onClose}>
             Close
@@ -120,6 +123,9 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
           <Button color="primary" onPress={handleSave}>
             Save
           </Button>
+          <button className="p-2 w-[80px] bg-purple-950" onClick={handleSave}>
+            Save
+          </button>
         </ModalFooter>
       </ModalContent>
     </Modal>
