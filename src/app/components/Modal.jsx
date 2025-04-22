@@ -110,7 +110,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
           <Button color="primary" onPress={onClose}>
             Close
           </Button>
-          <Button color="primary" onPress={handleSave}>
+          <Button color="primary" onClick={handleSave}>
             Save
           </Button>
         </ModalFooter>
