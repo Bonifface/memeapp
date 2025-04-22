@@ -13,22 +13,10 @@ import {
   TableCell,
 } from "@heroui/react";
 
-const getInitialMemes = () => {
-  try {
-    const fromStorage = localStorage.getItem("memes");
-    if (fromStorage) return JSON.parse(fromStorage);
-  } catch (e) {
-    console.error("Invalid localStorage format", e);
-  }
-  localStorage.setItem("memes", JSON.stringify(defaultMemes));
-  return defaultMemes;
-};
-
 export default function TablePage() {
-  const [memes, setMemes] = useState(getInitialMemes);
+  const [memes, setMemes] = useState(null); // ⬅ Спочатку null
   const [editing, setEditing] = useState(null);
   const [isOpenModal, setOpenModal] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleUpdate = (updatedMeme) => {
     const updated = memes.map((m) =>
@@ -60,14 +48,12 @@ export default function TablePage() {
         setMemes(defaultMemes);
       }
     } catch {
-      setMemes(defaultMemes);
       localStorage.setItem("memes", JSON.stringify(defaultMemes));
+      setMemes(defaultMemes);
     }
-
-    setIsLoaded(true);
   }, []);
 
-  if (!isLoaded) return null;
+  if (!memes) return null;
 
   return (
     <div className="flex flex-row justify-center h-full p-6 w-full">
