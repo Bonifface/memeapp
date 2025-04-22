@@ -68,7 +68,14 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
   }
 
   return (
-    <Modal isOpen={isOpenModal} size={"lg"} onClose={onClose}>
+    <Modal
+      isOpen={isOpenModal}
+      size={"lg"}
+      onClose={onClose}
+      classNames={{
+        wrapper: "[--slide-exit:0px]",
+      }}
+    >
       <ModalContent>
         <ModalHeader className="pl-4 flex items-center justify-center text-white">
           Edit
@@ -110,7 +117,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
           <Button color="primary" onPress={onClose}>
             Close
           </Button>
-          <Button color="primary" onClick={handleSave}>
+          <Button color="primary" onPress={handleSave}>
             Save
           </Button>
         </ModalFooter>
