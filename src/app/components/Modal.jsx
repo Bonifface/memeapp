@@ -50,7 +50,7 @@ export const MemeModal = ({ isOpenModal, meme, onClose, onSave }) => {
   }
 
   return (
-    <Modal isOpen={isOpenModal} size={"xl"} onClose={onClose}>
+    <Modal isOpen={isOpenModal} size={"lg"} onClose={onClose}>
       <ModalContent>
         <ModalHeader className="pl-4 flex items-center justify-center text-white">
           Edit
